@@ -2,19 +2,28 @@ import graphene
 from flask_graphql import GraphQLView
 from flask import Flask
 
-
-class Query(graphene.ObjectType):
-    hello = graphene.String()
-
-    def resolve_hello(self, args, context, info):
-        return 'Hello world!'
+from starwars.data import setup
+from starwars.schema import schema
 
 
-schema = graphene.Schema(query=Query)
+# class Query(graphene.ObjectType):
+#     hello = graphene.String()
+
+#     def resolve_hello(self, args, context, info):
+#         return 'Hello world!'
 
 
-app = Flask(__name__)
+def create_app():
+    # schema = graphene.Schema(query=Query)
+    setup()
 
-app.add_url_rule('/graphql', view_func=GraphQLView.as_view('graphql', schema=schema, graphiql=True))
+    app = Flask(__name__)
 
-app.run(host="0.0.0.0", port=8080)
+    app.add_url_rule('/graphql', view_func=GraphQLView.as_view('graphql', schema=schema, graphiql=True))
+
+    return app
+
+
+if __name__ == '__main__':
+    app = create_app()
+    app.run(host="0.0.0.0", port=8080)
