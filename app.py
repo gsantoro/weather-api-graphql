@@ -1,20 +1,13 @@
-import graphene
 from flask_graphql import GraphQLView
 from flask import Flask
 
 from starwars.data import setup
 from starwars.schema import schema
 
-
-# class Query(graphene.ObjectType):
-#     hello = graphene.String()
-
-#     def resolve_hello(self, args, context, info):
-#         return 'Hello world!'
-
+# from hello.data import setup
+# from hello.schema import schema
 
 def create_app():
-    # schema = graphene.Schema(query=Query)
     setup()
 
     app = Flask(__name__)
