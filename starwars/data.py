@@ -90,8 +90,12 @@ def get_hero(episode):
 
 
 def get_human(id):
+    if id is None:
+        id = '1000'
     return human_data.get(id)
 
 
 def get_droid(id):
+    if id is None:
+        id = '2000'
     return droid_data.get(id)
